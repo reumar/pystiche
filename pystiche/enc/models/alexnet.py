@@ -1,15 +1,15 @@
 from typing import Any, Dict, List, Tuple
 
 from torch import nn
-from torchvision.models import alexnet
-from torchvision.models.alexnet import model_urls as TORCH_MODEL_URLS
+from torchvision.models import alexnet, AlexNet_Weights
+
 
 from .utils import ModelMultiLayerEncoder, select_url
 
 __all__ = ["AlexNetMultiLayerEncoder", "alexnet_multi_layer_encoder"]
 
 
-MODEL_URLS = {"torch": TORCH_MODEL_URLS["alexnet"]}
+MODEL_URLS = {"torch": AlexNet_Weights.IMAGENET1K_V1.url}
 
 
 def _make_description() -> str:

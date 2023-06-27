@@ -2,6 +2,8 @@ import re
 from typing import Any, Callable, Dict, List, Tuple, cast
 
 import torchvision
+from torchvision.models import get_model_weights
+
 from torch import hub, nn
 
 from .utils import ModelMultiLayerEncoder
@@ -122,8 +124,10 @@ def _vgg_loader(arch: str) -> Callable[..., torchvision.models.VGG]:
     return vgg
 
 
-TORCH_MODEL_URLS = torchvision.models.vgg.model_urls
-ARCHS = tuple(TORCH_MODEL_URLS.keys())
+ARCHS = ('vgg11', 'vgg11_bn', 'vgg13', 'vgg13_bn', 'vgg16', 'vgg16_bn', 'vgg19', 'vgg19_bn')
+TORCH_MODEL_URLS = {
+    arch: get_model_weights(arch).DEFAULT.url for arch in ARCHS
+}
 MODEL_URLS = {(arch, "torch"): TORCH_MODEL_URLS[arch] for arch in ARCHS}
 MODEL_URLS.update(
     {
